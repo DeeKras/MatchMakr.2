@@ -1,0 +1,100 @@
+body {
+    padding-left: 15px;
+}
+
+.subheader {
+    font-family: 'Ubuntu', cursive;
+    font-size: 20px;
+}
+.btn {
+    border: solid thin #00CCCC;
+    background: lightgray;
+    color: #004c4d;
+    font-family: 'Ubuntu', cursive;
+    font-size: 15px;
+}
+.btn-xl {
+    background: #004c4d;
+    color: antiquewhite;
+    height: 100px;
+    width: 200px;
+    border: solid 4px lightgray;
+    border-radius: 20px;
+    font: 25px  'Ubuntu', cursive;
+}
+.lists th {
+    background: #004c4d;
+    color: antiquewhite;
+    font-family: 'Ubuntu', cursive;
+    font-size: 15px;
+    font-weight: bold;
+}
+.lists td {
+    border-bottom-color: gray;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+}
+
+
+#logo {
+    color: #00CCCC;
+    font-size: 48px;
+    font-family: 'Indie Flower', cursive;
+    font-weight: 900;
+}
+
+.lbl {
+    font-family: 'Ubuntu', cursive;
+    color: #004c4d;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 10px;
+    vertical-align: top;
+
+}
+.form-header{
+    color:#004c4d;
+    font-size: 30px;
+    font-family: 'Ubuntu', cursive;
+    font-weight: 900;
+}
+
+.input-box {
+    background-color: ghostwhite;
+    border-radius: 4px;
+    width: 500px;
+    height: 30px;
+    margin-top: 10px;
+    padding-left: 5px;
+    border: 1px solid #00CCCC;
+}
+.input-box-textarea {
+    background-color: ghostwhite;
+    border-radius: 4px;
+    width: 500px;
+    height: 120px;
+    margin-top: 10px;
+    padding-left: 5px;
+    border: 1px solid #00CCCC;
+    white-space:normal;
+    word-wrap: break-word;
+}
+.dropdown-box {
+    background-color: ghostwhite;
+    border-radius: 4px;
+    width: 300px;
+    height: 30px;
+    margin-top: 10px;
+    padding-left: 5px;
+    border: 1px solid #00CCCC;
+}
+
+.list-box {
+    background-color: ghostwhite;
+    border-radius: 4px;
+    width: 300px;
+    margin-top: 10px;
+    padding-left: 5px;
+    border: 1px solid #00CCCC;
+}
+

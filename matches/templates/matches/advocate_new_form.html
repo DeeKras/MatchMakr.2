@@ -1,0 +1,56 @@
+{% extends "matches/base.html" %}
+{% block content %}
+    {% load myfilters %}
+<span class="form-header">SIGN UP AS ADVOCATE </span><hr>
+
+    <form method="post" action="/advocate/signup/">{% csrf_token %}
+        {{ userform.non_field_errors }}
+
+    <table>
+        <col width="300">
+        <tr>
+            <td><span class="lbl">First Name:</span></td>
+            <td>{{userform.first_name|addclass:'input-box' }}{{ userform.first_name.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Last Name:</span></td>
+            <td>{{userform.last_name|addclass:'input-box' }}{{ userform.last_name.errors }}</td>
+        </tr>
+         <tr style="margin-top:10px; border-top:  20px solid transparent;">
+           <td><span class="lbl">User Name: </span></td>
+            <td>{{userform.username|addclass:'input-box' }}{{ userform.username.errors }} </td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Password: </span></td>
+            <td>{{userform.password1|addclass:'input-box' }}{{ userform.password1.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Password (again): </span></td>
+            <td>{{userform.password2|addclass:'input-box' }}{{ userform.password2.errors }}<br></td>
+        </tr>
+
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td ><span class="lbl">City: </span></td>
+            <td>{{advocateform.city|addclass:'input-box' }}{{ userform.city.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">State/ Province:</span></td>
+            <td>{{advocateform.state|addclass:'input-box' }}{{ userform.state.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Country:</span></td>
+            <td>{{advocateform.country|addclass:'input-box' }}{{ userform.country.errors }}</td>
+        </tr>
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">Email: </span></td>
+            <td>{{userform.email|addclass:'input-box' }}{{ userform.email.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Phone: </span></td>
+            <td>{{advocateform.phone|addclass:'input-box' }}{{ userform.phone.errors }}</td>
+        </tr>
+   </table>
+		<button class="btn" type="submit"  value="Submit" style="position: absolute; left:900px;">Sign Up</button>
+    </form>
+
+{% endblock content %}

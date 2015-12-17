@@ -1,0 +1,79 @@
+{% extends 'matches/base.html' %}
+{% block content %}
+    {% load myfilters %}
+
+<span class="form-header">SEARCH SINGLES </span><hr>
+
+
+    <form method="post" action="/search_single/">{% csrf_token %}
+        <table>
+        <col width="300">
+        <col width="400">
+        <col width="200">
+            <tr>
+                <td><span class="lbl">Find one of MY singles:</span></td>
+                <td>
+                    <select name="single" class="dropdown-box">
+                        <option>choose a single</option>
+                        {% for single in my_singles %}
+                            <option  value="{{ single.id }}">{{ single.last_name }} {{single.first_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            <td></td>
+                <td>
+                    <button class="btn" type="submit"  value="Submit" style="margin-top: 12px">Search</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+<br><br>
+    <form action="/advocate/show_circle" method="post" id="form2">{% csrf_token %}
+         <table>
+            <col width="300">
+            <col width="400">
+            <col width="200">
+            <tr>
+                <td><span class="lbl">Find singles from MY circles:</span></td>
+                <td>
+                    <select name="circle" class="dropdown-box">
+                        <option>choose a circle</option>
+                        {% for circle in circles %}
+                            <option value="{{ circle.id }}">{{ circle.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <input type="radio" name="gender" value="M">Male
+                    <input style="padding-left: 20px" type="radio" name="gender" value="F">Female
+                </td>
+                <td>
+                    <button class="btn" type="submit"  value="Submit" style="margin-top: 12px">Search</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br><br>
+
+    <form action="/advocate/show_circle" method="post" id="form2">{% csrf_token %}
+         <table>
+            <col width="300">
+            <col width="400">
+            <col width="200">
+            <tr>
+                <td><span class="lbl">Find singles from an advocate:</span></td>
+                <td>
+
+                </td>
+                <td>
+                    <input type="radio" name="gender" value="M">Male
+                    <input style="padding-left: 20px" type="radio" name="gender" value="F">Female
+                </td>
+                <td>
+                    <button class="btn" type="submit"  value="Submit" style="margin-top: 12px">Search</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+{% endblock %}

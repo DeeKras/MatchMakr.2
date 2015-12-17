@@ -1,0 +1,34 @@
+{% extends "matches/base.html" %}
+{% block content %}
+
+
+<h3>MY CIRCLES</h3>
+
+<table>
+    <col width="400">
+    <tr>
+        <form action="/advocate/add_circle" method="post" id="form1">{% csrf_token %}
+            <td>
+                <b>Add me to a circle</b><br><br>
+                <input type="text" name="circle" placeholder="enter circle code"><br>
+                <button type="submit" form="form1" value="Submit">Submit</button>
+            </td>
+        </form>
+        <td>
+            <b>Show me a list of singles from one of my circles</b><br><br>
+            <form action="/advocate/show_circle" method="post" id="form2">{% csrf_token %}
+                choose a circle: <select name="circle">
+                    <option>choose a circle</option>
+                    {% for circle in circles %}
+                        <option value="{{ circle.id }}">{{ circle.name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="radio" name="gender" value="M">Male
+                <input type="radio" name="gender" value="F">Female<br>
+                <button type="submit" form="form2" value="Submit">Go!</button>
+            </form>
+        </td
+    </tr>
+</table>
+
+{% endblock content %}

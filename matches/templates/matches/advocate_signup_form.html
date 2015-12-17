@@ -1,0 +1,16 @@
+{% extends "matches/base.html" %}
+{% block content %}
+<h3>SIGN UP AS ADVOCATE (the one who is helping a SINGLE look for a shiduch)</h3>
+
+    <form method="post" action="/advocate/signup/">{% csrf_token %}
+        First Name: {{form.first_name}}  Last Name: {{form.last_name}}<br><br>
+        User Name: {{form.username}}  Password: {{form.password1}} Password (again): {{form.password2}}<br>
+        <hr><br>
+        City: {{form.city}} State/ Province: {{form.state}} Country: {{form.country}}<br><br>
+        Email: {{form.email}}  Phone: {{form.phone}}
+        <hr>
+
+		<input type="submit" value="Sign Up" />
+    </form>
+
+{% endblock content %}

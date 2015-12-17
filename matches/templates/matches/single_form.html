@@ -1,0 +1,92 @@
+{% extends 'matches/base.html' %}
+<head>
+    <script>
+    {% if messages %}
+        {% for message in messages %}
+            alert(message);
+        {% endfor %}
+    {% endif %}
+    </script>
+</head>
+{% block content %}
+    {% load myfilters %}
+
+
+<form method="post" enctype="multipart/form-data" >{% csrf_token %}
+
+{% if object %}
+    <span class="form-header">UPDATE SINGLE </span><hr>
+{% else %}
+    <span class="form-header">ADD SINGLE </span><hr>
+{% endif %}
+
+
+
+    <table>
+        <col width="300">
+        <tr>
+            <td><span class="lbl">First Name:*</span></td>
+            <td>{{form.first_name|addclass:'input-box'}}{{ form.first_name.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Last Name:*</span></td>
+            <td>{{form.last_name |addclass:'input-box'}}{{ form.last_name.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Gender:*</span></td>
+            <td>{{form.gender|addclass:'input-box'}}{{ form.gender.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Age:*</span></td>
+            <td>{{form.age|addclass:'input-box'}}{{ form.age.errors }}</td>
+        </tr>
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">Father:</span></td>
+            <td>{{form.father|addclass:'input-box'}}{{ form.father.errors }}</td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Mother:</span></td>
+            <td>{{form.mother|addclass:'input-box'}}{{ form.mother.errors }}</td>
+        </tr>
+         <tr>
+            <td><span class="lbl">Parent's Location:</span></td>
+            <td>{{form.parents_location|addclass:'input-box'}}{{ form.parents_location.errors }}</td>
+        </tr>
+
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">Short description:*</span></td>
+            <td>{{ form.short_desc|addclass:'input-box-textarea' }}{{ form.short_desc.errors }}</td>
+        </tr>
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">Reference:</span></td>
+            <td>{{ form.reference|addclass:'input-box' }}{{ form.reference.errors }}</td>
+        </tr>
+        <tr>
+            <td> <span class="lbl">Prefered Matchmaker:</span></td>
+            <td>{{ form.prefered_matchmaker|addclass:'input-box' }}{{ form.prefered_matchmaker.errors }}</td>
+        </tr>
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">How do you know the single?*</span></td>
+            <td>{{ form.how_advocate_knows|addclass:'input-box' }}{{ form.how_advocate_knows.errors }}</td>
+        </tr>
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            {% if single %}
+                <td><span class="lbl">Photo:</span></td>
+                <td><img src="/media/{{single.photo}}" style="width:274px;height:206px;
+                                                            margin-top:10px; padding:10px;
+                                                            border: 1px solid #00CCCC;border-radius: 4px;
+                                                            background-color: ghostwhite;">
+                <br>{{form.photo }}</td>
+            {% else %}
+                <td><span class="lbl">Upload Photo:</span></td>
+                <td>{{form.photo }}</td>
+            {% endif %}
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">Upload Resume:</span></td>
+            <td>{{form.resume }}</td>
+        </tr>
+
+    </table>
+    <button class="btn" type="submit"  value="Submit" style="position: absolute; left:900px;">Submit</button>
+</form>
+{% endblock content %}

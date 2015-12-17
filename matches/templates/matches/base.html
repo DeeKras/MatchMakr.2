@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    {% load staticfiles %}
+    {% load myfilters %}
+
+    <script src="{% static "js/jquery-1.11.1.js" %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/0dk.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">#}
+
+
+</head>
+<body>
+
+<div id="logo">MatchMakers - <i>Express</i></div>
+
+<div style="position: absolute; left:900px; top:30px;">
+    {% if user %}
+        <p style="font-size: medium; color: #00CCCC; font-weight: bold">Welcome {{ user }}!
+        <a href="{% url 'logout' %}"><button class="btn">Sign Out</button></a></p>
+    {% else %}
+        <a href="{% url 'login' %}"><button class="btn">Sign In</button></a>
+        <a href="{% url "advocate_signup" %}"><button class="btn">Sign Up as Advocate</button></a>
+    {%  endif %}
+
+</div>
+
+<hr>
+    {% block content %}{% endblock %}
+</body>
+</html>

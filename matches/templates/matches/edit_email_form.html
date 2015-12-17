@@ -1,0 +1,38 @@
+{% extends 'matches/base.html' %}
+{% block content %}
+    {% load myfilters %}
+
+<span class="form-header">SENDING PROFILE </span><hr>
+<form method="post" action="{% url 'send_email' %}">{% csrf_token %}
+
+
+   {{form.single_id.as_hidden}}
+<table>
+    <col width="100">
+    <col width="500">
+    <col width="40">
+
+
+    <tr>
+        <td><span class="lbl">To:</span></td>
+        <td><input class = "input-box" type="text" name="to" placeholder="Enter recipient email"></td>
+    </tr>
+    <tr style="margin-top:10px; border-top:  20px solid transparent;">
+        <td><span class="lbl">From:</span></td>
+        <td>{{form.email_from|addclass:'input-box'}}</td>
+        <td></td>
+    </tr>
+    <tr style="margin-top:10px; border-top:  20px solid transparent;">
+        <td><span class="lbl">Subject:</span></td>
+        <td>{{form.email_subject|addclass:'input-box'}}</td>
+    </tr>
+    <tr style="margin-top:10px; border-top:  20px solid transparent;">
+        <td><span class="lbl">Message:</span></td>
+        <td>{{form.email_body|addclass:'input-box'}}</td>
+    </tr>
+</table>
+<br><br>
+<button class="btn" type="submit"  value="Submit" style="position: absolute; left:900px;">Send</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+    {% extends 'matches/base.html' %}
+
+
+    {% block content %}
+
+    <span class="form-header">SINGLES from ADVOCATES in my CIRCLE: </span><span class="subheader">{{circle}}</span><hr>
+
+    <span class="subheader">
+        {% if gender == "F" %}
+        WOMEN
+    {% else %}
+        MEN
+    {% endif %}
+    </span>
+
+
+    <table class="lists">
+        <col width="250">
+        <col width="100">
+        <col width="50">
+        <col width="200">
+        <col width="300">
+        <col width="150">
+
+        <th>Name</th>
+        <th>Location</th>
+        <th>Age</th>
+        <th>Parents</th>
+        <th>Short Description</th>
+        <th>Added by</th>
+        <th>Relationship</th>
+
+
+            {% for single in singles %}
+        <tr style="margin-top:10px; border-top:  5px solid transparent;">
+            <td><a href="{% url "single_profile" single.id%}"><b>{{single.last_name}}, {{single.first_name}}</b> </a></td>
+            <td>{{single.location}}</td>
+            <td>{{single.age}}</td>
+            <td>
+                {% if single.father %}
+                    {{single.father}} & {{single.mother}} ({{single.parents_location}})
+                {% endif %}
+            </td>
+            <td>{{single.short_desc|safe|truncatechars:"50"}}</td>
+            <td>{{single.created_by.first_name}} {{single.created_by.last_name}}</td>
+            <td>{{single.how_advocate_knows }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% endblock content %}
+
+    <!-- /.javascript files -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+	<script src="js/wow.min.js"></script>
+</body>
+
+
+</html>

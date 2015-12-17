@@ -1,0 +1,27 @@
+{%  extends advocate_homepage %}
+{% block list_my_singles %}
+
+    <span class="form-header">MY SINGLES </span><hr>
+
+
+    {% for single in singles %}
+        <table>
+            <col width="100">
+            <col width="100">
+            <col width="100">
+            <col width="70">
+
+            <tr>
+                <td><img src="media/{{single.photo}}" height="5%";></td>
+                <td>{{single.last_name}}</td>
+                <td>{{single.first_name}}</td>
+                <td>{{single.gender}}</td>
+                <td>{{single.age}}</td>
+                <td><a href="{% url "single_edit" single.id %}"><button class = 'btn'>edit</button></a></td>
+                <td><a href="{% url "email_single_profile" single.id %}"><button class = 'btn'>email profile</button></a></td>
+            </tr>
+        </table>
+    {% endfor %}
+
+{% endblock list_my_singles %}
+

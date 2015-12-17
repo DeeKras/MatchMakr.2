@@ -1,0 +1,9 @@
+{% extends "matches/base.html" %}
+{% block content %}
+
+ADVOCATE (the one who is helping a SINGLE look for a shiduch)
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends "matches/base.html" %}
+{% block content %}
+    {% load myfilters %}
+
+<span class="form-header">REQUEST TO BE ADDED TO A CIRCLE </span><hr>
+ <form action="/advocate/add_circle" method="post" id="form1">{% csrf_token %}
+            <td>
+                <b>Add me to a circle</b><br><br>
+                <input type="text" name="circle" placeholder="enter circle code" class="input-box">
+                <button type="submit" form="form1" value="Submit" class="btn">Submit</button>
+            </td>
+ </form>
+{% endblock %}

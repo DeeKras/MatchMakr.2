@@ -1,0 +1,15 @@
+{% extends "matches/base.html" %}
+{% block content %}
+
+<h3>HOME</h3>
+
+    <div>This program will help everyone get to meet the singles that their friends might know - without having to call your friends.
+
+    <br><br>1. Just add the singles you know - your children, siblings, friends, co-workers, neighbors, friends' children, students.
+    <br><br>2. Add yourself to your circles.
+    <br><br>3. Search through the singles of those in your circle.
+</div>
+    <img src="/static/images/Circles.png" style="position: absolute; left: 400px;">
+
+<a href="{% url "advocate_signup" %}"><button class="btn-xl" style="position: absolute; left:500 px;">Get Started</button></a>
+{% endblock content %}

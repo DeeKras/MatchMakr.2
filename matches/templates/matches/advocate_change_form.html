@@ -1,0 +1,80 @@
+{% extends "matches/base.html" %}
+{% block content %}
+    {% load myfilters %}
+
+    <span class="form-header">CHANGE ADVOCATE INFO </span><hr>
+
+    <form method="post" action="{% url 'advocate_edit' pk %}">{% csrf_token %}
+        {{pk.as_hidden}}
+        {{userform.username.as_hidden}}  {{userform.password1.as_hidden}}  {{userform.password2.as_hidden}}
+
+        <table>
+        <col width="300">
+        <tr>
+            <td><span class="lbl">First Name:</span></td>
+            <td>{{userform.first_name|addclass:'input-box' }}</td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td><span class="lbl">Last Name:</span></td>
+            <td>{{userform.last_name|addclass:'input-box' }}</td>
+            <td></td>
+        </tr>
+        <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td ><span class="lbl">City: </span></td>
+            <td>{{advocateform.city|addclass:'input-box' }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span class="lbl">State/ Province:</span></td>
+            <td>{{advocateform.state|addclass:'input-box' }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Country:</span></td>
+            <td>{{advocateform.country|addclass:'input-box' }}</td>
+            <td></td>
+        </tr>
+         <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">Email: </span></td>
+            <td>{{userform.email|addclass:'input-box' }}</td>
+             <td></td>
+        </tr>
+        <tr>
+            <td><span class="lbl">Phone: </span></td>
+            <td>{{advocateform.phone|addclass:'input-box' }}</td>
+            <td></td>
+        </tr>
+        </table>
+ <button class="btn" type="submit"  value="Submit" style="position: absolute; left:900px;">Submit</button>
+    </form>
+
+        <table>
+        <col width="300">
+            <tr style="margin-top:10px; border-top:  20px solid transparent;">
+            <td><span class="lbl">My Circles: </span></td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="list-box">
+                                {% for circle in my_circles %}
+                                    {{ circle.name }}<br>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td style="padding-left: 30px">
+                            <a href="{% url "add_to_circle_form" %}"><button class = 'btn'>Add a  Circle</button></a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+   </table>
+<br>
+
+
+
+
+{% endblock content %}
