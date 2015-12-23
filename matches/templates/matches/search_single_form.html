@@ -1,79 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+</head>
+
+<body>
 {% extends 'matches/base.html' %}
 {% block content %}
-    {% load myfilters %}
+{% include 'matches/pageheader_advocate.html' %}
+{% load myfilters %}
 
-<span class="form-header">SEARCH SINGLES </span><hr>
 
+<form method="post" action="/get_search_results/">{% csrf_token %}
+    <table>
+    <col width="400px">
+    <col width="400px">
+        <tr>
+            <td><span class="form-header">SEARCH SINGLES </span></td>
+        </tr>
+        <tr>
+            <td></td><td>
+                <span class="lbl">Gender</span>
+            </td>
+            <td>
+                <span class="lbl">Age Range</span>
+            </td>
+        </tr>
+        <tr>
+            <td></td><td>
+                <div id="radio">
+                    <input type="radio" id="M" value="M" name="gender"><label for="M">Men</label>
+                    <input type="radio" id="F" value="F" name="gender"><label for="F">Women</label>
+                    <input type="radio" id="A" value="A" name="gender" checked="checked"><label for="A">All</label>
+                </div>
+            </td>
+            <td>
+                <input type="checkbox" name="any" checked="checked"> Any
+                <input type="number" name="min_age" width="30px" placeholder="lowest" class="input-box-small">
+                <input type="number" name="max_age" width="30px" placeholder="highest" class="input-box-small">
 
-    <form method="post" action="/search_single/">{% csrf_token %}
-        <table>
-        <col width="300">
-        <col width="400">
-        <col width="200">
-            <tr>
-                <td><span class="lbl">Find one of MY singles:</span></td>
-                <td>
-                    <select name="single" class="dropdown-box">
-                        <option>choose a single</option>
-                        {% for single in my_singles %}
-                            <option  value="{{ single.id }}">{{ single.last_name }} {{single.first_name}}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            <td></td>
-                <td>
-                    <button class="btn" type="submit"  value="Submit" style="margin-top: 12px">Search</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-<br><br>
-    <form action="/advocate/show_circle" method="post" id="form2">{% csrf_token %}
-         <table>
-            <col width="300">
-            <col width="400">
-            <col width="200">
-            <tr>
-                <td><span class="lbl">Find singles from MY circles:</span></td>
-                <td>
-                    <select name="circle" class="dropdown-box">
-                        <option>choose a circle</option>
-                        {% for circle in circles %}
-                            <option value="{{ circle.id }}">{{ circle.name }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-                <td>
-                    <input type="radio" name="gender" value="M">Male
-                    <input style="padding-left: 20px" type="radio" name="gender" value="F">Female
-                </td>
-                <td>
-                    <button class="btn" type="submit"  value="Submit" style="margin-top: 12px">Search</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table>
+    <col width="300">
+    <col width="400">
+    <col width="300">
+        <tr>
+            <td><span class="lbl">Find one of MY singles:</span></td>
+            <td>
+                <select name="single" class="dropdown-box">
+                    <option>choose a single</option>
+                    {% for single in my_singles %}
+                        <option  value="{{ single.id }}">{{ single.last_name }} {{single.first_name}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        <td></td>
+            <td>
+                <button class="btn" type="submit" name="submit"  value="my_single" style="margin-top: 12px">Search</button>
+            </td>
+        </tr>
+    </table>
     <br><br>
 
-    <form action="/advocate/show_circle" method="post" id="form2">{% csrf_token %}
-         <table>
-            <col width="300">
-            <col width="400">
-            <col width="200">
-            <tr>
-                <td><span class="lbl">Find singles from an advocate:</span></td>
-                <td>
+     <table>
+        <col width="300">
+        <col width="400">
+        <col width="300">
+        <tr>
+            <td><span class="lbl">Find singles from MY circles:</span></td>
+            <td>
+                <select name="circles" class="dropdown-box">
+                    <option>choose a circle</option>
+                    {% for circle in circles %}
+                        <option value="{{ circle.id }}">{{ circle.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
 
-                </td>
-                <td>
-                    <input type="radio" name="gender" value="M">Male
-                    <input style="padding-left: 20px" type="radio" name="gender" value="F">Female
-                </td>
-                <td>
-                    <button class="btn" type="submit"  value="Submit" style="margin-top: 12px">Search</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+            </td>
+            <td>
+                <button class="btn" type="submit" name="submit"  value="by_circle" style="margin-top: 12px">Search</button>
+            </td>
+        </tr>
+    </table>
+    <br><br>
 
+     <table>
+        <col width="300">
+        <col width="400">
+        <col width="300">
+        <tr>
+            <td><span class="lbl">Find singles from an advocate:</span></td>
+            <td>
+                <select name="singles_by_advocate" class="dropdown-box">
+                    <option>choose an advocate</option>
+                    {% for advocate in advocates %}
+                        <option value="{{ advocate.user.id }}">{{ advocate.user.last_name }}, {{ advocate.user.first_name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+            </td>
+            <td>
+                <button class="btn" type="submit" name="submit" value="by_advocate" style="margin-top: 12px">Search</button>
+            </td>
+        </tr>
+    </table>
+</form>
 {% endblock %}
+
+</body>
+</html>

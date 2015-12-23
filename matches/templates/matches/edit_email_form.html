@@ -15,7 +15,12 @@
 
     <tr>
         <td><span class="lbl">To:</span></td>
-        <td><input class = "input-box" type="text" name="to" placeholder="Enter recipient email"></td>
+        <td>{% if form.email_to %}
+                {{form.email_to|addclass:'input-box'}}
+            {% else %}
+                <input class = "input-box" type="text" name="to" placeholder="Enter recipient email">
+            {%  endif %}
+        </td>
     </tr>
     <tr style="margin-top:10px; border-top:  20px solid transparent;">
         <td><span class="lbl">From:</span></td>
@@ -29,6 +34,10 @@
     <tr style="margin-top:10px; border-top:  20px solid transparent;">
         <td><span class="lbl">Message:</span></td>
         <td>{{form.email_body|addclass:'input-box'}}</td>
+    </tr>
+    <tr style="margin-top:10px; border-top:  20px solid transparent;">
+        <td></td>
+        <td>{{form.email_attachment.as_hidden}}</td>
     </tr>
 </table>
 <br><br>

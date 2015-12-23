@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.forms.models import modelform_factory
 
 from validators import lowest_age
-from utils import GENDER_CHOICES
+from utils import GENDER_CHOICES, DEACTIVATE_SINGLES_CHOICES, SINGLE_STATUS_CHOICES
 
 class ModelFormWidgetMixin(object):
     def get_form_class(self):
@@ -89,6 +89,7 @@ class Single(models.Model):
 
     created_by = models.ForeignKey(User)
     created_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=1, choices=SINGLE_STATUS_CHOICES, default="A")
 
     class Meta:
         verbose_name_plural = 'singles'
@@ -101,17 +102,20 @@ class Single(models.Model):
 class SingleChangeLog(models.Model):
     single = models.ForeignKey(Single)
 
+    status = models.CharField(max_length=1, choices=SINGLE_STATUS_CHOICES)
+    deactivate_reason = models.CharField(max_length=1, choices=DEACTIVATE_SINGLES_CHOICES)
+    deactivate_date = models.DateTimeField(null=True, blank=True)
     changed_by = models.ForeignKey(User)
     changed_date = models.DateTimeField(auto_now_add=True)
 
-    first_name = models.CharField(max_length=30, blank=False)
-    last_name = models.CharField(max_length=30, blank=False)
-    gender = models.CharField(max_length=1,choices=GENDER_CHOICES, blank=False)
-    age = models.IntegerField(blank=False)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES)
+    age = models.IntegerField()
     location = models.CharField(max_length=100)
     short_desc = models.CharField(max_length=1500)
 
-    how_advocate_knows = models.CharField(max_length=100, blank=False)
+    how_advocate_knows = models.CharField(max_length=100)
 
     mother =  models.CharField(max_length=100)
     father =  models.CharField(max_length=100)

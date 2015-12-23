@@ -6,12 +6,14 @@ import weasyprint
 from PIL import Image
 
 
-
-
-
 GENDER_CHOICES = (
     ('M', 'Male'),
     ('F', 'Female'),
+)
+
+SINGLE_STATUS_CHOICES = (
+    ('A', "Active"),
+    ('I', 'Inactive')
 )
 
 DEACTIVATE_SINGLES_CHOICES = (
@@ -28,21 +30,35 @@ def get_ip(request):
     return ip
 
 def get_today_date():
+    '''
+    gets today's date and formats as YYYY_MM_DD
+    '''
     today = date.today()
     return '{}_{}_{}'.format(today.year, today.month, today.day)
 
 def get_name_date(pk):
+    '''
+    combines Single name and today's date.
+    used for naming the profile jpg
+    '''
     from .models import Single
     single = get_object_or_404(Single, pk=pk)
     return '{}_{}_{}'.format(single.last_name, single.first_name, get_today_date())
 
 def get_lastupdate_date(pk):
+    '''
+    gets the date of the most recent entry in the SingleChangeLog (to put as 'updated on [date]'
+    '''
     from .models import SingleChangeLog
     s = SingleChangeLog.objects.filter(single_id=pk).aggregate(Max('changed_date'))['changed_date__max']
     return s.strftime("%B %d, %Y")
 
+# create profile jpg
 
 def create_profile_image(pk):
+    '''
+    all the steps of creating the profile jpg
+    '''
     from .models import Single
 
     single = Single.objects.get(pk=pk)
@@ -53,6 +69,9 @@ def create_profile_image(pk):
     return save_to
 
 def create_profile_photo(single):
+    '''
+    create the photo as jpg
+    '''
     if single.photo != 'photos/None/no-img.jpg':
         photo = Image.open('{}/{}'.format('media', single.photo))
     else:
@@ -72,6 +91,9 @@ def create_profile_photo(single):
     return photo
 
 def create_profile_html(single, pk):
+    '''
+    using the Single's info, create the html (which will them be saved as png to be joined with the photo)
+    '''
     reference ='{}'.format(single.reference) if single.reference else 'None provided'
     matchmaker = '{}'.format(single.prefered_matchmaker) if single.prefered_matchmaker else 'None provided'
     location = '{}'.format(single.location) if single.location else 'Not provided'
@@ -100,11 +122,20 @@ def create_profile_html(single, pk):
     return html
 
 def create_profile_text_png(html):
+    '''
+    convert the html to a png
+    '''
     profile_text = weasyprint.HTML(string=html)
     profile_text.write_png('media/temp/profile_text.png')
     return Image.open('media/temp/profile_text.png')
 
 def create_profile_canvas(profile_text_png, photo, pk):
+    '''
+    creates a blank canvas
+    then saves the profile text png  on a white background as a jpg. and saves it on the blank canvas
+    then pastes the photo to the canvas
+    and saves it all as a jpg
+    '''
     canvas = Image.new("RGBA", (1000, 1200), 'white')
 
     background = Image.new("RGB", profile_text_png.size, (255, 255, 255))

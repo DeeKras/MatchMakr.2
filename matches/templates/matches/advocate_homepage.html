@@ -1,31 +1,50 @@
 {% extends "matches/base.html" %}
+{% block subheading %} {% endblock %}
 {% block content %}
-
-        <td><a href="{% url "single_create" %} "><button class="btn">Add Single</button></a></td>
-        <td><a href="{% url "single_search_form"  %}"><button class="btn">Find Singles</button></a></td>
-        <td><a href="{%  url "advocate_edit" user.id %}"><button class="btn">My Account</button></a></td>
-
-
-<hr>
+{% load myfilters %}
+{% include 'matches/pageheader_advocate.html' %}
     <span class="form-header">MY SINGLES </span><hr>
+    {%  if singles %}
 
+        {% for single in singles %}
+            <table class="lists">
+                <col width="100">
+                <col width="100">
+                <col width="100">
+                <col width="70">
+                <col width="100">
+                <col width="100">
+                <col width="150">
+                <col width="200">
 
-    {% for single in singles %}
-        <table>
-            <col width="100">
-            <col width="100">
-            <col width="100">
-            <col width="70">
-            <col width="100">
+               {% if  single.status  == "A" %}
+                <tr >
+                {%  else %}
+                <tr style="color:gray;">
+                {% endif %}
+                    <td><div id="list-person-name">{{single.last_name}}</div></td>
+                    <td><div id="list-person-name">{{single.first_name}}</div></td>
+                    <td>{{single.gender}}</td>
+                    <td>{{single.age}}</td>
+                    <td>{{single.status}}</td>
+                    <td><a href="{% url "single_edit" single.id %}"><button class = 'btn'>edit</button></a></td>
+                    <td><a href="{% url "email_single_profile" single.id %}"><button class = 'btn'>email profile</button></a></td>
+                    <td> {% if  single.status  == "A" %}
+                            <a href="{% url "change_single_status" single.id %}">
+                            <button class = 'btn'>change status</button></a>
+                        {%  else %}
+                            INACTIVE
+                        {%  endif %}
+                    </td>
 
-            <tr style="margin-top:10px; border-top:  5px solid transparent;">
-                <td><b>{{single.last_name}}</b></td>
-                <td><b>{{single.first_name}}</b></td>
-                <td>{{single.gender}}</td>
-                <td>{{single.age}}</td>
-                <td><a href="{% url "single_edit" single.id %}"><button class = 'btn'>edit</button></a></td>
-                <td><a href="{% url "email_single_profile" single.id %}"><button class = 'btn'>email profile</button></a></td>
-            </tr>
-        </table>
-    {% endfor %}
-    {% endblock %}
+                </tr>
+            </table>
+        {% endfor %}
+    {% else %}
+        <span style="padding-left: 200px; font-size: 20px;">None yet --</span><br><br>
+        <span style="padding-left: 200px">
+            <a href="{% url "single_create" %} "><button class="btn-xl" >Add Single</button></a>
+        </span>
+    {% endif %}
+
+{% endblock %}

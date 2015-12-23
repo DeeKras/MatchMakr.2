@@ -1,8 +1,9 @@
 {% extends "matches/base.html" %}
 {% block content %}
-    {% load myfilters %}
+{% include 'matches/pageheader_advocate.html' %}
+{% load myfilters %}
 
-    <span class="form-header">CHANGE ADVOCATE INFO </span><hr>
+<span class="form-header">CHANGE ADVOCATE INFO </span><hr>
 
     <form method="post" action="{% url 'advocate_edit' pk %}">{% csrf_token %}
         {{pk.as_hidden}}
@@ -59,9 +60,13 @@
                     <tr>
                         <td>
                             <div class="list-box">
-                                {% for circle in my_circles %}
-                                    {{ circle.name }}<br>
-                                {% endfor %}
+                                {% if my_circles %}
+                                    {% for circle in my_circles %}
+                                        {{ circle.name }}<br>
+                                    {% endfor %}
+                                {% else %}
+                                    None yet
+                                {%  endif %}
                             </div>
                         </td>
                         <td style="padding-left: 30px">
