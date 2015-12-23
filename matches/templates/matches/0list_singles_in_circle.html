@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <title>jQuery UI Tooltip - Default functionality</title>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <link rel="stylesheet" href="/resources/demos/style.css">
+
+        <script>
+          $(function() {
+            $( document ).tooltip();
+          });
+      </script>
+
+      <style>
+          label {
+            display: inline-block;
+            width: 5em;
+          }
+      </style>
+
+    --
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    ---
+    <script>
+       $( function overlay() {
+            el = document.getElementById("overlay");
+	        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";});
+    </script>
+
+
+</head>
+
+<body>
+    {% extends 'matches/base.html' %}
+    {% block content %}
+
+    <span class="form-header">SINGLES from ADVOCATES in my CIRCLE: </span><span class="subheader">{{circle}}</span><hr>
+
+    <span class="subheader">
+        {% if gender == "F" %}
+        WOMEN
+    {% else %}
+        MEN
+    {% endif %}
+    </span>
+
+
+    <table class="lists">
+        <col width="250">
+        <col width="100">
+        <col width="50">
+        <col width="200">
+        <col width="300">
+        <col width="150">
+
+        <th>Name</th>
+        <th>Location</th>
+        <th>Age</th>
+        <th>Parents</th>
+        <th>Short Description</th>
+        <th>Added by</th>
+        <th>Relationship</th>
+
+<div data-role="main" class="ui-content">
+        {% for single in singles %}
+        <tr style="margin-top:10px;">
+            <td><a href="{% url "single_profile" single.id%}">
+                <div id="list-person-name">{{single.last_name}}, {{single.first_name}}</div> </a></td>
+            <td>{{single.location}}</td>
+            <td>{{single.age}}</td>
+            <td>
+                {% if single.father %}
+                    {{single.father}} & {{single.mother}} ({{single.parents_location}})
+                {% endif %}
+            </td>
+            <td>{{single.short_desc|safe|truncatechars:"100"}}</td>
+            <td>
+                    {{single.created_by.first_name}} {{single.created_by.last_name}}
+            </td>
+            <td>{{single.how_advocate_knows }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="www.chabad.org" data-rel="popup" class="ui-btn" data-transition="pop">Pop</a>
+
+
+    <div data-role="popup" id="myPopup" class="ui-content">
+      <p>Hello {{single.mother}} </p>
+    </div>
+</div>
+
+        <a href='#' onclick='overlay()'>Click here to show the overlay</a>
+<span class="green_box" onmouseover="I am Green and today is {% now "d-n-Y" %}">green</span>
+
+<div id="overlay" >
+     <div >
+          <p>Content you want the user to see goes here.  {{ single.father }}
+          Click here to [<a href='#' onclick='overlay()'>close</a>]</p>
+     </div>
+</div>
+
+
+
+    {% endblock content %}
+</body>
+
+
+</html>

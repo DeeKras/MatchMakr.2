@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<html lang="en">
+<head>
+
+</head>
+
+<body>
+{% extends 'matches/base.html' %}
+{% block content %}
+{% include 'matches/pageheader_advocate.html' %}
+
+<span class="form-header"> SEARCH RESULTS:  </span>
+    <span class="subheader">[{{ form_header }}: {{form_subheader}} | Gender: {{ gender_display }}  | Age: {{ age_display }} ]</span><hr>
+
+
+    <table class="lists">
+        <col width="250">
+        <col width="100">
+        <col width="50">
+        <col width="200">
+        <col width="300">
+        <col width="150">
+
+        <th>Name</th>
+        <th>Location</th>
+        <th>Age</th>
+        <th>Parents</th>
+        <th>Short Description</th>
+        <th>Added by</th>
+        <th>Relationship</th>
+        <th>Request Resume</th>
+
+<div data-role="main" class="ui-content">
+    {% regroup singles by gender as gender_list %}
+    {% for gender in gender_list %}
+        <tr>
+            <td><span class="subheader">
+                {% if gender.grouper == 'M' %}
+                    MEN
+                {% elif gender.grouper == 'F' %}
+                    WOMEN
+                {% endif %}
+            </span></td>
+        </tr>
+        {%  for single in gender.list %}
+            <tr style="margin-top:10px;">
+                <td><a href="{% url "single_profile" single.id%}">
+                    <div id="list-person-name">{{single.last_name}}, {{single.first_name}}</div> </a></td>
+                <td>{{single.location}}</td>
+                <td>{{single.age}}</td>
+                <td>
+                    {% if single.father %}
+                        {{single.father}} & {{single.mother}} ({{single.parents_location}})
+                    {% endif %}
+                </td>
+                <td>{{single.short_desc|safe|truncatechars:"100"}}</td>
+                <td>
+                    <a href="{% url "advocate_contact_info" single.id %}"
+                       onclick="window.open(this.href, 'mywin',
+                       'left=500,top=200,width=300,height=300,toolbar=0,resizable=0, menubar=no, scrollbars=no'); return false;" >
+                        {{single.created_by.first_name}} {{single.created_by.last_name}}</a>
+                </td>
+                <td>{{single.how_advocate_knows }}</td>
+                <td><a href="{% url "request_resume" single.id %}"><button class = 'btn'>request resume</button></a></td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+    </table>
+
+
+    {% endblock content %}
+
+
+</body>
+
+
+</html>

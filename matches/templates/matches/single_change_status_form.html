@@ -1,0 +1,17 @@
+
+Change Status<br>
+
+{{ single.first_name }} {{ single.last_name }}<br>
+
+<form method="post" >{% csrf_token %}
+Status: {{ single.status }}<br>
+
+Deactivate Reason: <select name="deactivate_reason" class="dropdown-box">
+                    <option>choose a reason</option>
+                    {% for reason  in CHOICES %}
+                        <option  value="{{ reason.0}}">{{reason.1}}</option>
+                    {% endfor %}
+                </select>
+
+    <button class="btn" type="submit"  value="Submit" style="position: absolute; left:900px;">Submit</button>
+</form>
